@@ -6,6 +6,9 @@ class Agent;
 
 class SteeringBehavior
 {
+private:
+	Vector2D desiredVel;
+	Vector2D steeringForce;
 public:
 	SteeringBehavior();
 	~SteeringBehavior();
