@@ -35,7 +35,7 @@ Vector2D SceneArrival::Arrive(Agent *agent, Vector2D target, float slowingRadius
 	}
 
 	steeringForce = desiredVel - agent->getVelocity();
-	return steeringForce.Truncate(agent->getMaxForce);
+	return steeringForce.Truncate(agent->getMaxForce());
 }
 
 Vector2D SceneArrival::Arrive(Agent *agent, Agent *target, float slowingRadius, float dtime){
