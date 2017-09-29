@@ -65,3 +65,20 @@ Vector2D SteeringBehavior::Flee(Agent *agent, Agent *target, float dtime)
 {
 	return Flee(agent, target->position, dtime);
 }
+
+Vector2D  SteeringBehavior::Arrive(Agent* agent, Vector2D target, int radius, float dt) {
+	return Vector2D(0, 0);
+}
+Vector2D  SteeringBehavior::Arrive(Agent* agent, Agent* target, int radius, float dt){
+	return Vector2D(0, 0);
+}
+Vector2D  SteeringBehavior::Pursue(Agent* agent, Vector2D target, float dt) {
+	return Vector2D(0, 0);
+}
+Vector2D  SteeringBehavior::Pursue(Agent* agent, Agent* target, float dt) {
+	return Vector2D(0, 0);
+}
+Vector2D  SteeringBehavior::Wander(Agent* agent, float angle, float* wanderAngle, int wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dt) {
+	return Vector2D(0, 0);
+
+}
