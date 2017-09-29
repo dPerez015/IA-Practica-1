@@ -20,6 +20,28 @@ SceneArrival::~SceneArrival()
 	}
 }
 
+Vector2D SceneArrival::Arrive(Agent *agent, Vector2D target, float slowingRadius, float dtime){
+	Vector2D desiredVel;
+	Vector2D steeringForce;
+	float distance;
+	desiredVel = target - agent->getPosition();
+	distance = desiredVel.Length();
+
+	if (distance < slowingRadius) {
+		desiredVel = desiredVel.Normalize()*agent->getMaxVelocity()*(distance/slowingRadius);
+	}
+	else {
+		desiredVel = desiredVel.Normalize()*agent->getMaxVelocity();
+	}
+
+	steeringForce = desiredVel - agent->getVelocity();
+	return steeringForce.Truncate(agent->getMaxForce);
+}
+
+Vector2D SceneArrival::Arrive(Agent *agent, Agent *target, float slowingRadius, float dtime){
+	return Arrive(agent, target->getPosition(),  slowingRadius, dtime);
+}
+
 void SceneArrival::update(float dtime, SDL_Event *event)
 {
 	/* Keyboard & Mouse events */
@@ -35,7 +57,7 @@ void SceneArrival::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
-	Vector2D steering_force = agents[0]->Behavior()->Arrive(agents[0], agents[0]->getTarget(), 325, dtime);
+	Vector2D steering_force = Arrive(agents[0], agents[0]->getTarget(), 10.f, dtime);
 	agents[0]->update(steering_force, dtime, event);
 }
 
@@ -49,3 +71,4 @@ const char* SceneArrival::getTitle()
 {
 	return "SDL Steering Behaviors :: Arrival Demo";
 }
+

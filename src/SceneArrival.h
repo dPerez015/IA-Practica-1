@@ -9,6 +9,8 @@ class SceneArrival :
 public:
 	SceneArrival();
 	~SceneArrival();
+	Vector2D Arrive(Agent *agent, Vector2D target, float slowingRadius, float dtime);
+	Vector2D Arrive(Agent *agent, Agent *target, float slowingRadius, float dtime);
 	void update(float dtime, SDL_Event *event);
 	void draw();
 	const char* getTitle();
