@@ -13,6 +13,7 @@ public:
 	void draw();
 	const char* getTitle();
 private:
+	Vector2D Pursue(Agent* agent, Agent* pursued, float dt);
 	std::vector<Agent*> agents;
 	Vector2D target;
 };

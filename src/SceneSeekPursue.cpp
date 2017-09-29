@@ -26,6 +26,12 @@ SceneSeekPursue::~SceneSeekPursue()
 	}
 }
 
+Vector2D SceneSeekPursue::Pursue(Agent* agent, Agent* pursued, float dt) {
+	float predictedT =Vector2D::Distance(agent->getPosition(),pursued->getPosition());
+	Vector2D predictedPos = pursued->getPosition() + pursued->getVelocity();
+	return agent->Behavior()->Seek(agent, predictedPos, dt);
+}
+
 void SceneSeekPursue::update(float dtime, SDL_Event *event)
 {
 	/* Keyboard & Mouse events */
