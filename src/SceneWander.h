@@ -1,5 +1,8 @@
 #pragma once
 #include <vector>
+#include <math.h>
+#include <stdlib.h>
+#include <time.h>
 #include "Scene.h"
 #include "Agent.h"
 
@@ -9,6 +12,7 @@ class SceneWander :
 public:
 	SceneWander();
 	~SceneWander();
+	Vector2D Wander(Agent* agent, float angle, float* wanderAngle, int wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dt);
 	void update(float dtime, SDL_Event *event);
 	void draw();
 	const char* getTitle();
