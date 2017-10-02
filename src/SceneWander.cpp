@@ -39,7 +39,7 @@ Vector2D SceneWander::Wander(Agent* agent, float angle, float* wanderAngle, int 
 	wanderDisplacementVector.y = sin(*wanderAngle) * wanderCircleRadius;
 
 	
-	wanderAngle += rand() % wanderMaxChange - wanderMaxChange / 2;
+	*wanderAngle += rand() % wanderMaxChange - wanderMaxChange / 2;
 	
 	//Calcular WanderForce (suma dels 2 vectors)
 	Vector2D wanderForce = wanderCircleCenter + wanderDisplacementVector;
