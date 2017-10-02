@@ -29,17 +29,17 @@ SceneWander::~SceneWander()
 	}
 }
 
-Vector2D SceneWander::Wander(Agent* agent, float angle, float* wanderAngle, int wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dt) {
+Vector2D SceneWander::Wander(Agent* agent, float angle, float &wanderAngle, int wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dt) {
 	
 	//vector del centre del cercle respecte l'agent
 	wanderCircleCenter = agent->getVelocity().Normalize() * wanderCircleOffset;
 
 	//Displacement force
-	wanderDisplacementVector.x = cos(*wanderAngle) * wanderCircleRadius;
-	wanderDisplacementVector.y = sin(*wanderAngle) * wanderCircleRadius;
+	wanderDisplacementVector.x = cos(wanderAngle) * wanderCircleRadius;
+	wanderDisplacementVector.y = sin(wanderAngle) * wanderCircleRadius;
 
 	
-	*wanderAngle += rand() % wanderMaxChange - wanderMaxChange / 2;
+	wanderAngle += rand() % wanderMaxChange - wanderMaxChange / 2;
 	
 	//Calcular WanderForce (suma dels 2 vectors)
 	Vector2D wanderForce = wanderCircleCenter + wanderDisplacementVector;
@@ -65,7 +65,7 @@ void SceneWander::update(float dtime, SDL_Event *event)
 	}
 	Vector2D velocity = agents[0]->getVelocity();
 	float angle = (float)(atan2(velocity.y, velocity.x) * RAD2DEG);
-	Vector2D steering_force = Wander(agents[0], angle, &wanderAngle, wanderMaxChange,
+	Vector2D steering_force = Wander(agents[0], angle, wanderAngle, wanderMaxChange,
 		wanderCircleOffset, wanderCircleRadius, dtime);
 	agents[0]->update(steering_force, dtime, event);
 }
