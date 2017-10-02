@@ -57,7 +57,7 @@ void SceneArrival::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
-	Vector2D steering_force = Arrive(agents[0], agents[0]->getTarget(), 10.f, dtime);
+	Vector2D steering_force = Arrive(agents[0], agents[0]->getTarget(), 400.f, dtime);
 	agents[0]->update(steering_force, dtime, event);
 }
 
