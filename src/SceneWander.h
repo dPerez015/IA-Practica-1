@@ -12,7 +12,7 @@ class SceneWander :
 public:
 	SceneWander();
 	~SceneWander();
-	Vector2D Wander(Agent* agent, float angle, float* wanderAngle, int wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dt);
+	Vector2D Wander(Agent* agent, float angle, float& wanderAngle, int wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dt);
 	void update(float dtime, SDL_Event *event);
 	void draw();
 	const char* getTitle();
