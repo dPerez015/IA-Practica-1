@@ -44,6 +44,7 @@ void SceneKinematicSeek::draw()
 {
 	draw_circle(TheApp::Instance()->getRenderer(), (int)target.x, (int)target.y, 15, 255, 0, 0, 255);
 	agents[0]->draw();
+	draw_arrow(TheApp::Instance()->getRenderer(), (int)agents[0]->getPosition().x, (int)agents[0]->getPosition().y, agents[0]->getVelocity().Length(), agents[0]->getOrientation());
 }
 
 const char* SceneKinematicSeek::getTitle()

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <SDL.h>
+#include "Vector2D.h"
 
 /* Get the resource path for resources located in res/subDir */
 std::string getResourcePath(const std::string &subDir = "") {
@@ -92,4 +93,20 @@ void draw_circle(SDL_Renderer *surface, int n_cx, int n_cy, int rad, Uint8 r, Ui
 			}
 		}
 	}
+}
+
+void draw_arrow(SDL_Renderer* rend, int cx, int cy, float size, float orient) {
+	SDL_SetRenderDrawColor(rend, 255, 255, 255, SDL_ALPHA_OPAQUE);
+
+	int endX = round(cos(orient*DEG2RAD) * size) + cx;
+	int endY = round(sin(orient*DEG2RAD) * size) + cy;
+	SDL_RenderDrawLine(rend, cx, cy, endX, endY);
+
+	int endSublineX = round(cos((orient + 150)*DEG2RAD) * size/3) + endX;
+	int endSublineY = round(sin((orient + 150)*DEG2RAD) * size/3) + endY;
+	SDL_RenderDrawLine(rend, endX, endY, endSublineX, endSublineY);
+
+	endSublineX = round(cos((orient + 210)*DEG2RAD) * size/3) + endX;
+	endSublineY = round(sin((orient + 210)*DEG2RAD) * size/3) + endY;
+	SDL_RenderDrawLine(rend, endX, endY, endSublineX, endSublineY);
 }

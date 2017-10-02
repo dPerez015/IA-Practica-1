@@ -56,6 +56,9 @@ float Agent::getMaxForce()
 {
 	return max_force;
 }
+float Agent::getOrientation() {
+	return orientation;
+}
 
 void Agent::setPosition(Vector2D _position)
 {
