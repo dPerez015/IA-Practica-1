@@ -85,20 +85,24 @@ void Agent::setColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 	color = { r, g, b, a };
 }
 
+void Agent::changeDrawMode() {
+	draw_sprite != draw_sprite;
+}
+
 void Agent::update(Vector2D steering_force, float dtime, SDL_Event *event)
 {
 
 	//cout << "agent update:" << endl;
 
-	switch (event->type) {
-		/* Keyboard & Mouse events */
+	/*switch (event->type) {
+		/* Keyboard & Mouse events 
 	case SDL_KEYDOWN:
 		if (event->key.keysym.scancode == SDL_SCANCODE_SPACE)
 			draw_sprite = !draw_sprite;
 		break;
 	default:
 		break;
-	}
+	}*/
 
 
 	Vector2D acceleration = steering_force / mass;
@@ -139,6 +143,7 @@ void Agent::draw()
 	{
 		draw_circle(TheApp::Instance()->getRenderer(), (int)position.x, (int)position.y, 15, color.r, color.g, color.b, color.a);
 		SDL_RenderDrawLine(TheApp::Instance()->getRenderer(), (int)position.x, (int)position.y, (int)(position.x+15*cos(orientation*DEG2RAD)), (int)(position.y+15*sin(orientation*DEG2RAD)));
+	
 	}
 }
 

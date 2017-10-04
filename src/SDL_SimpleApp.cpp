@@ -67,6 +67,8 @@ SDL_Event SDL_SimpleApp::run(Scene *scene)
 	SDL_RenderClear(renderer);
 	scene->update(dtime,&event);
 	scene->draw();
+
+
 	SDL_RenderPresent(renderer);
 	return event;
 }

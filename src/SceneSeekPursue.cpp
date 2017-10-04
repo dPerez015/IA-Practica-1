@@ -4,6 +4,8 @@ using namespace std;
 
 SceneSeekPursue::SceneSeekPursue()
 {
+	debugMode = false;
+
 	Agent *agent = new Agent;
 	agent->setTarget(Vector2D(100, 100));
 	agent->setMass(0.6f);

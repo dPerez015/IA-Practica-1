@@ -5,6 +5,7 @@ using namespace std;
 
 SceneKinematicSeek::SceneKinematicSeek()
 {
+	debugMode = false;
 	Agent *agent = new Agent;
 	agent->setPosition(Vector2D(640,360));
 	agent->setTarget(Vector2D(640, 360));
@@ -45,6 +46,16 @@ void SceneKinematicSeek::draw()
 	draw_circle(TheApp::Instance()->getRenderer(), (int)target.x, (int)target.y, 15, 255, 0, 0, 255);
 	agents[0]->draw();
 	draw_arrow(TheApp::Instance()->getRenderer(), (int)agents[0]->getPosition().x, (int)agents[0]->getPosition().y, agents[0]->getVelocity().Length(), agents[0]->getOrientation());
+}
+void SceneKinematicSeek::debugDraw() {
+	draw_circle(TheApp::Instance()->getRenderer(), (int)target.x, (int)target.y, 15, 255, 0, 0, 255);
+}
+
+void SceneKinematicSeek::changeDebugMode() {
+	debugMode != debugMode;
+	for (int i = 0; i < agents.size ; i++) {
+		agents[i]->changeDrawMode();
+	}
 }
 
 const char* SceneKinematicSeek::getTitle()
