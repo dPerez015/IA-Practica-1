@@ -71,4 +71,10 @@ const char* SceneArrival::getTitle()
 {
 	return "SDL Steering Behaviors :: Arrival Demo";
 }
+void SceneArrival::changeDebugMode() {
+	debugMode != debugMode;
+	for (int i = 0; i < agents.size(); i++) {
+		agents[i]->changeDrawMode();
+	}
+}
 

@@ -15,6 +15,7 @@ public:
 	Vector2D Wander(Agent* agent, float angle, float& wanderAngle, int wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dt);
 	void update(float dtime, SDL_Event *event);
 	void draw();
+	void changeDebugMode();
 	const char* getTitle();
 private:
 	std::vector<Agent*> agents;

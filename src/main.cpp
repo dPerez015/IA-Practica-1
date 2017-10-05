@@ -80,7 +80,7 @@ int main(int argc, char ** argv)
 				app->setFullScreen();
 			}
 			if (event.key.keysym.scancode == SDL_SCANCODE_SPACE) {
-				curr_scene->setDebugMode();
+				curr_scene->changeDebugMode();
 			}
 			break;
 		case SDL_QUIT:

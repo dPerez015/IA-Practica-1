@@ -49,3 +49,6 @@ const char* SceneFlee::getTitle()
 {
 	return "SDL Steering Behaviors :: Flee Demo";
 }
+void SceneFlee::changeDebugMode() {
+
+}

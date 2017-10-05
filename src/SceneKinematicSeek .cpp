@@ -37,7 +37,7 @@ void SceneKinematicSeek::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
-	Vector2D steering_force = agents[0]->Behavior()->KinematicSeek(agents[0], agents[0]->getTarget(), dtime);
+	steering_force = agents[0]->Behavior()->KinematicSeek(agents[0], agents[0]->getTarget(), dtime);
 	agents[0]->update(steering_force, dtime, event);
 }
 
@@ -49,11 +49,12 @@ void SceneKinematicSeek::draw()
 }
 void SceneKinematicSeek::debugDraw() {
 	draw_circle(TheApp::Instance()->getRenderer(), (int)target.x, (int)target.y, 15, 255, 0, 0, 255);
+	draw_arrow(TheApp::Instance()->getRenderer(), agents[0]->getPosition().x, agents[0]->getPosition().y, steering_force.Length(), (float)atan2(steering_force.y, steering_force.x)*RAD2DEG);
 }
 
 void SceneKinematicSeek::changeDebugMode() {
 	debugMode != debugMode;
-	for (int i = 0; i < agents.size ; i++) {
+	for (int i = 0; i < agents.size() ; i++) {
 		agents[i]->changeDrawMode();
 	}
 }

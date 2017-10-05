@@ -67,6 +67,10 @@ void SceneSeekPursue::draw()
 	draw_arrow(TheApp::Instance()->getRenderer(), (int)agents[0]->getPosition().x, (int)agents[0]->getPosition().y, agents[0]->getVelocity().Length(), agents[0]->getOrientation());
 }
 
+void SceneSeekPursue::changeDebugMode() {
+
+}
+
 const char* SceneSeekPursue::getTitle()
 {
 	return "SDL Steering Behaviors :: Seek and Pursue Demo";

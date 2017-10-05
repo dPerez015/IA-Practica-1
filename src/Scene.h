@@ -12,6 +12,6 @@ public:
 	virtual void draw() = 0;
 	//virtual void debugDraw()=0;
 	virtual const char* getTitle() { return ""; };
-	virtual void changeDebugMode();
+	virtual void changeDebugMode()=0;
 };
 

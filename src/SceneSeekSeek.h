@@ -11,6 +11,7 @@ public:
 	~SceneSeekSeek();
 	void update(float dtime, SDL_Event *event);
 	void draw();
+	void changeDebugMode();
 	const char* getTitle();
 private:
 	std::vector<Agent*> agents;

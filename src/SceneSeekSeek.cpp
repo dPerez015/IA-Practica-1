@@ -58,6 +58,9 @@ void SceneSeekSeek::draw()
 		agents[i]->draw();
 	}
 }
+void SceneSeekSeek::changeDebugMode() {
+
+}
 
 const char* SceneSeekSeek::getTitle()
 {

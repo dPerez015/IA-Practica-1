@@ -7,7 +7,7 @@
 #include "Vector2D.h"
 #include "utils.h"
 #include "SteeringBehavior.h"
-
+#include <vector>
 
 class Agent
 {
@@ -23,7 +23,7 @@ private:
 	float orientation;
 	float max_force;
 	float max_velocity;
-
+	
 	SDL_Color color;
 
 	SDL_Texture *sprite_texture;

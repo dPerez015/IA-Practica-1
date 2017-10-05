@@ -44,6 +44,9 @@ void SceneKinematicFlee::draw()
 	draw_circle(TheApp::Instance()->getRenderer(), (int)target.x, (int)target.y, 15, 255, 0, 0, 255);
 	agents[0]->draw();
 }
+void SceneKinematicFlee::changeDebugMode() {
+
+}
 
 const char* SceneKinematicFlee::getTitle()
 {

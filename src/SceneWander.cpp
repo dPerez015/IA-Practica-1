@@ -74,7 +74,9 @@ void SceneWander::draw()
 {
 	agents[0]->draw();
 }
+void SceneWander::changeDebugMode() {
 
+}
 const char* SceneWander::getTitle()
 {
 	return "SDL Steering Behaviors :: Wander Demo";

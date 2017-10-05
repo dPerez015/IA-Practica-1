@@ -11,6 +11,7 @@ public:
 	~SceneSeekPursue();
 	void update(float dtime, SDL_Event *event);
 	void draw();
+	void changeDebugMode();
 	const char* getTitle();
 private:
 	Vector2D Pursue(Agent* agent, Agent* pursued, float dt);
