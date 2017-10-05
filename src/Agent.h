@@ -27,12 +27,13 @@ private:
 	SDL_Color color;
 
 	SDL_Texture *sprite_texture;
-	bool draw_sprite;
+	
 	int sprite_num_frames;
 	int sprite_w;
 	int sprite_h;
 
 public:
+	bool draw_sprite;
 	Agent();
 	~Agent();
 	SteeringBehavior *Behavior();

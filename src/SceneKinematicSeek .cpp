@@ -54,9 +54,8 @@ void SceneKinematicSeek::debugDraw() {
 
 void SceneKinematicSeek::changeDebugMode() {
 	debugMode != debugMode;
-	for (int i = 0; i < agents.size() ; i++) {
-		agents[i]->changeDrawMode();
-	}
+	agents[0]->setColor(0,0,100,1);
+	agents[0]->changeDrawMode();
 }
 
 const char* SceneKinematicSeek::getTitle()

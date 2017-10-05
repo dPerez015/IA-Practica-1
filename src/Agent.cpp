@@ -86,7 +86,7 @@ void Agent::setColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 }
 
 void Agent::changeDrawMode() {
-	draw_sprite != draw_sprite;
+	draw_sprite = !draw_sprite;
 }
 
 void Agent::update(Vector2D steering_force, float dtime, SDL_Event *event)
@@ -102,8 +102,8 @@ void Agent::update(Vector2D steering_force, float dtime, SDL_Event *event)
 		break;
 	default:
 		break;
-	}*/
-
+	}
+	*/
 
 	Vector2D acceleration = steering_force / mass;
 	velocity = velocity + acceleration * dtime;
