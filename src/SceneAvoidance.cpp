@@ -24,11 +24,11 @@ Vector2D SceneAvoidance::Avoid(Agent *agent, Vector2D target, float dtime) {
 	Vector2D desiredVel;
 	Vector2D steeringForce;
 	desiredVel = target - agent->getPosition();
-
+	return 0;
 }
 
 Vector2D SceneAvoidance::Avoid(Agent *agnet, Agent *target, float dtime) {
-
+	return 0;
 }
 
 void SceneAvoidance::update(float dtime, SDL_Event *event)
@@ -46,9 +46,8 @@ void SceneAvoidance::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
-	//Equals Avoidance function
-	Vector2D steering_force;
-	agents[0]->update(steering_force, dtime, event);
+	//Vector2D steering_force = Avoidance(agents[0], agents[0]->getTarget(), dtime);
+	//agents[0]->update(steering_force, dtime, event);
 }
 
 void SceneAvoidance::draw()
