@@ -14,9 +14,11 @@ public:
 	void update(float dtime, SDL_Event *event);
 	void draw();
 	const char* getTitle();
+	void debugDraw();
 	void changeDebugMode();
 private:
 	std::vector<Agent*> agents;
 	Vector2D target;
+	float radius;
 };
 

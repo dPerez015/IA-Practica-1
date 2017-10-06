@@ -10,6 +10,8 @@ SceneArrival::SceneArrival()
 	agent->loadSpriteTexture("../res/soldier.png", 4);
 	agents.push_back(agent);
 	target = Vector2D(640, 360);
+	radius = 100.f;
+	debugMode = true;
 }
 
 SceneArrival::~SceneArrival()
@@ -57,13 +59,23 @@ void SceneArrival::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
-	Vector2D steering_force = Arrive(agents[0], agents[0]->getTarget(), 200.f, dtime);
+	Vector2D steering_force = Arrive(agents[0], agents[0]->getTarget(), radius, dtime);
 	agents[0]->update(steering_force, dtime, event);
 }
 
 void SceneArrival::draw()
 {
-	draw_circle(TheApp::Instance()->getRenderer(), (int)target.x, (int)target.y, 15, 255, 0, 0, 255);
+	if (debugMode) {
+		draw_circle(TheApp::Instance()->getRenderer(), (int)target.x, (int)target.y, 15, 255, 0, 0, 255);
+		agents[0]->draw();
+	}
+	else
+		debugDraw();
+}
+
+void SceneArrival::debugDraw() {
+	//radio
+	draw_circle(TheApp::Instance()->getRenderer(), (int)target.x, (int)target.y, radius, 255, 0, 0, 255);
 	agents[0]->draw();
 }
 
@@ -72,7 +84,7 @@ const char* SceneArrival::getTitle()
 	return "SDL Steering Behaviors :: Arrival Demo";
 }
 void SceneArrival::changeDebugMode() {
-	debugMode != debugMode;
+	debugMode =! debugMode;
 	for (int i = 0; i < agents.size(); i++) {
 		agents[i]->changeDrawMode();
 	}

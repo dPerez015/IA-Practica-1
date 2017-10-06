@@ -112,3 +112,12 @@ void draw_arrow(SDL_Renderer* rend, int cx, int cy, float size, float orient, in
 	endSublineY = round(sin((orient + 210)*DEG2RAD) * size/6) + endY;
 	SDL_RenderDrawLine(rend, endX, endY, endSublineX, endSublineY);
 }
+
+void draw_square(SDL_Renderer* rend, Vector2D esquina1, Vector2D esquina2, Vector2D esquina3, Vector2D esquina4, int r, int g, int b, int a) {
+	SDL_SetRenderDrawColor(rend, r, g, b, a);
+
+	SDL_RenderDrawLine(rend, esquina1.x, esquina1.y, esquina2.x, esquina2.y);
+	SDL_RenderDrawLine(rend, esquina2.x, esquina2.y, esquina3.x, esquina3.y);
+	SDL_RenderDrawLine(rend, esquina3.x, esquina3.y, esquina4.x, esquina4.y);
+	SDL_RenderDrawLine(rend, esquina4.x, esquina4.y, esquina1.x, esquina1.y);
+}
