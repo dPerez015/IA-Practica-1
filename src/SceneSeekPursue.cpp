@@ -64,7 +64,7 @@ void SceneSeekPursue::draw()
 	{
 		//agents[i]->draw();
 	}
-	draw_arrow(TheApp::Instance()->getRenderer(), (int)agents[0]->getPosition().x, (int)agents[0]->getPosition().y, agents[0]->getVelocity().Length(), agents[0]->getOrientation());
+	//draw_arrow(TheApp::Instance()->getRenderer(), (int)agents[0]->getPosition().x, (int)agents[0]->getPosition().y, agents[0]->getVelocity().Length(), agents[0]->getOrientation());
 }
 
 void SceneSeekPursue::changeDebugMode() {

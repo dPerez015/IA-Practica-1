@@ -11,10 +11,12 @@ public:
 	~SceneKinematicFlee();
 	void update(float dtime, SDL_Event *event);
 	void draw();
+	void debugDraw();
 	const char* getTitle();
 	void changeDebugMode();
 private:
 	std::vector<Agent*> agents;
 	Vector2D target;
+	Vector2D steering_force;
 };
 

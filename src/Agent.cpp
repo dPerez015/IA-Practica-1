@@ -89,6 +89,11 @@ void Agent::changeDrawMode() {
 	draw_sprite = !draw_sprite;
 }
 
+void Agent::addForce(Vector2D f) {
+	totalForce += f;	
+	//forcesList.push_back(f);
+}
+
 void Agent::update(Vector2D steering_force, float dtime, SDL_Event *event)
 {
 
@@ -104,6 +109,7 @@ void Agent::update(Vector2D steering_force, float dtime, SDL_Event *event)
 		break;
 	}
 	*/
+	totalForce = steering_force;
 
 	Vector2D acceleration = steering_force / mass;
 	velocity = velocity + acceleration * dtime;
@@ -141,9 +147,18 @@ void Agent::draw()
 	}
 	else 
 	{
+		//posicion del personaje
 		draw_circle(TheApp::Instance()->getRenderer(), (int)position.x, (int)position.y, 15, color.r, color.g, color.b, color.a);
+		
+		//target
+		draw_circle(TheApp::Instance()->getRenderer(), (int)target.x, (int)target.y, 15, 255, 0, 0, 255);
 		//SDL_RenderDrawLine(TheApp::Instance()->getRenderer(), (int)position.x, (int)position.y, (int)(position.x+15*cos(orientation*DEG2RAD)), (int)(position.y+15*sin(orientation*DEG2RAD)));
-		draw_arrow(TheApp::Instance()->getRenderer(), position.x, position.y, velocity.Length(), orientation);
+		
+		//velocidad
+		draw_arrow(TheApp::Instance()->getRenderer(), position.x, position.y, velocity.Length(), orientation, 255, 255, 0, 255);
+	
+		//fuerza
+		draw_arrow(TheApp::Instance()->getRenderer(), position.x, position.y, totalForce.Length(), (float)atan2(totalForce.y, totalForce.x)*RAD2DEG, 0, 255, 0, 255);
 	}
 }
 

@@ -35,7 +35,7 @@ void SceneKinematicFlee::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
-	Vector2D steering_force = agents[0]->Behavior()->KinematicFlee(agents[0],agents[0]->getTarget(),dtime);
+	steering_force = agents[0]->Behavior()->KinematicFlee(agents[0],agents[0]->getTarget(),dtime);
 	agents[0]->update(steering_force, dtime, event);
 }
 
@@ -44,8 +44,15 @@ void SceneKinematicFlee::draw()
 	draw_circle(TheApp::Instance()->getRenderer(), (int)target.x, (int)target.y, 15, 255, 0, 0, 255);
 	agents[0]->draw();
 }
-void SceneKinematicFlee::changeDebugMode() {
 
+void SceneKinematicFlee::debugDraw() {
+	agents[0]->draw();
+	draw_arrow(TheApp::Instance()->getRenderer(), agents[0]->getPosition().x, agents[0]->getPosition().y, steering_force.Length(), (float)atan2(steering_force.y, steering_force.x)*RAD2DEG, 0, 255, 0, 255);
+}
+
+void SceneKinematicFlee::changeDebugMode() {
+	debugMode = !debugMode;
+	agents[0]->changeDrawMode();
 }
 
 const char* SceneKinematicFlee::getTitle()
