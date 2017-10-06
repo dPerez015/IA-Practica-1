@@ -13,6 +13,7 @@ public:
 	void draw();
 	const char* getTitle();
 	void changeDebugMode();
+	void debugDraw();
 private:
 	std::vector<Agent*> agents;
 	Vector2D target;

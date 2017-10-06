@@ -11,6 +11,7 @@ public:
 	~SceneSeek();
 	void update(float dtime, SDL_Event *event);
 	void draw();
+	void debugDraw();
 	void changeDebugMode();
 	const char* getTitle();
 private:

@@ -10,6 +10,7 @@ SceneFlee::SceneFlee()
 	agent->loadSpriteTexture("../res/soldier.png", 4);
 	agents.push_back(agent);
 	target = Vector2D(640, 360);
+	debugMode = true;
 }
 
 SceneFlee::~SceneFlee()
@@ -45,10 +46,16 @@ void SceneFlee::draw()
 	agents[0]->draw();
 }
 
+void SceneFlee::debugDraw() {
+	agents[0]->draw();
+}
 const char* SceneFlee::getTitle()
 {
 	return "SDL Steering Behaviors :: Flee Demo";
 }
 void SceneFlee::changeDebugMode() {
-
+	debugMode = !debugMode;
+	for (int i = 0; i < agents.size(); i++) {
+		agents[i]->changeDrawMode();
+	}
 }

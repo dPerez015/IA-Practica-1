@@ -44,8 +44,16 @@ void SceneSeek::draw()
 	draw_circle(TheApp::Instance()->getRenderer(), (int)target.x, (int)target.y, 15, 255, 0, 0, 255);
 	agents[0]->draw();
 }
-void SceneSeek::changeDebugMode() {
 
+void SceneSeek::debugDraw() {
+	agents[0]->draw();
+}
+
+void SceneSeek::changeDebugMode() {
+	debugMode = !debugMode;
+	for (int i = 0; i < agents.size(); i++) {
+		agents[i]->changeDrawMode();
+	}
 }
 
 const char* SceneSeek::getTitle()
