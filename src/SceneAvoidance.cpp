@@ -42,8 +42,7 @@ Vector2D SceneAvoidance::Avoid(Agent *agent, Vector2D target, float dtime) {
 	}
 	if (desiredVel.Length() > 0.f) {
 		steeringForce = desiredVel - agent->getVelocity();
-		steeringForce /= agent->getMaxVelocity();
-		steeringForce *= agent->getMaxForce();
+		steeringForce.Truncate(agent->getMaxForce());
 	}
 	return steeringForce;
 
