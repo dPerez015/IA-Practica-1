@@ -1,4 +1,5 @@
 #include "SceneAvoidance.h"
+#include "SDL_SimpleApp.h"
 
 using namespace std;
 
@@ -10,6 +11,7 @@ SceneAvoidance::SceneAvoidance()
 	agent->loadSpriteTexture("../res/soldier.png", 4);
 	agents.push_back(agent);
 	target = Vector2D(640, 360);
+	perimeterBorder = 100.f;
 }
 
 SceneAvoidance::~SceneAvoidance()
@@ -23,12 +25,32 @@ SceneAvoidance::~SceneAvoidance()
 Vector2D SceneAvoidance::Avoid(Agent *agent, Vector2D target, float dtime) {
 	Vector2D desiredVel;
 	Vector2D steeringForce;
+
 	desiredVel = target - agent->getPosition();
-	return 0;
+
+	if (agent->getPosition().x < perimeterBorder) {
+		desiredVel.x = agent->getMaxVelocity();
+	}
+	else if (agent->getPosition().x > TheApp::Instance()->getWinSize().x - perimeterBorder) {
+		desiredVel.x = -agent->getMaxVelocity();
+	}
+	if (agent->getPosition().y < perimeterBorder) {
+		desiredVel.y = agent->getMaxVelocity();
+	}
+	else if (agent->getPosition().y > TheApp::Instance()->getWinSize().y - perimeterBorder) {
+		desiredVel.y = -agent->getMaxVelocity();
+	}
+	if (desiredVel.Length() > 0.f) {
+		steeringForce = desiredVel - agent->getVelocity();
+		steeringForce /= agent->getMaxVelocity();
+		steeringForce *= agent->getMaxForce();
+	}
+	return steeringForce;
+
 }
 
-Vector2D SceneAvoidance::Avoid(Agent *agnet, Agent *target, float dtime) {
-	return 0;
+Vector2D SceneAvoidance::Avoid(Agent *agent, Agent *target, float dtime) {
+	return Avoid(agent, target->getPosition(), dtime);
 }
 
 void SceneAvoidance::update(float dtime, SDL_Event *event)
@@ -46,8 +68,8 @@ void SceneAvoidance::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
-	//Vector2D steering_force = Avoidance(agents[0], agents[0]->getTarget(), dtime);
-	//agents[0]->update(steering_force, dtime, event);
+	Vector2D steering_force = Avoid(agents[0], agents[0]->getTarget(), dtime);
+	agents[0]->update(steering_force, dtime, event);
 }
 
 void SceneAvoidance::draw()
