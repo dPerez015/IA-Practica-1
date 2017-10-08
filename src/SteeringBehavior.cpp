@@ -90,8 +90,8 @@ Vector2D  SteeringBehavior::Pursue(Agent* agent, Vector2D target, float dt) {
 	return Vector2D(0, 0);
 }
 Vector2D  SteeringBehavior::Pursue(Agent* agent, Agent* pursued, float dt) {
-	float predictedT = Vector2D::Distance(agent->getPosition(), pursued->getPosition());
-	Vector2D predictedPos = pursued->getPosition() + pursued->getVelocity();
+	float predictedT = Vector2D::Distance(agent->getPosition(), pursued->getPosition()) / agent->getMaxVelocity();
+	Vector2D predictedPos = pursued->getPosition() + pursued->getVelocity()*predictedT;
 	agent->setTarget(predictedPos);
 	return agent->Behavior()->Seek(agent, predictedPos, dt);
 }
