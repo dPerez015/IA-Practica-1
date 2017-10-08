@@ -31,6 +31,7 @@ SceneSeekPursue::~SceneSeekPursue()
 Vector2D SceneSeekPursue::Pursue(Agent* agent, Agent* pursued, float dt) {
 	float predictedT =Vector2D::Distance(agent->getPosition(),pursued->getPosition());
 	Vector2D predictedPos = pursued->getPosition() + pursued->getVelocity();
+	agent->setTarget(predictedPos);
 	return agent->Behavior()->Seek(agent, predictedPos, dt);
 }
 
@@ -50,7 +51,7 @@ void SceneSeekPursue::update(float dtime, SDL_Event *event)
 		break;
 	}
 
-	agents[0]->setTarget(agents[1]->getPosition());
+	//agents[0]->setTarget(agents[1]->getPosition());
 	Vector2D steering_force = agents[1]->Behavior()->Arrive(agents[1], agents[1]->getTarget(), 200, dtime);
 	agents[1]->update(steering_force, dtime, event);
 	steering_force = agents[0]->Behavior()->Pursue(agents[0], agents[1], dtime);
@@ -62,13 +63,23 @@ void SceneSeekPursue::draw()
 	draw_circle(TheApp::Instance()->getRenderer(), (int)target.x, (int)target.y, 15, 255, 0, 0, 255);
 	for (int i = 0; i < (int)agents.size(); i++)
 	{
-		//agents[i]->draw();
+		agents[i]->draw();
 	}
 	//draw_arrow(TheApp::Instance()->getRenderer(), (int)agents[0]->getPosition().x, (int)agents[0]->getPosition().y, agents[0]->getVelocity().Length(), agents[0]->getOrientation());
 }
+void SceneSeekPursue::debugDraw() {
+	for (int i = 0; i < (int)agents.size(); i++)
+	{
+		agents[i]->draw();
+	}
+
+}
 
 void SceneSeekPursue::changeDebugMode() {
-
+	debugMode = !debugMode;
+	for (int i = 0; i < agents.size(); i++) {
+		agents[i]->changeDrawMode();
+	}
 }
 
 const char* SceneSeekPursue::getTitle()

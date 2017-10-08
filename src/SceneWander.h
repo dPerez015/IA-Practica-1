@@ -12,17 +12,18 @@ class SceneWander :
 public:
 	SceneWander();
 	~SceneWander();
-	Vector2D Wander(Agent* agent, float angle, float& wanderAngle, int wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dt);
+	Vector2D Wander(Agent* agent, float angle, float& wanderAngle, float wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dt);
 	void update(float dtime, SDL_Event *event);
 	void draw();
 	void changeDebugMode();
+	void debugDraw();
 	const char* getTitle();
 private:
 	std::vector<Agent*> agents;
 	Vector2D target;
 public:
 	// Wander fields
-	int wanderMaxChange = 50;
+	float wanderMaxChange;
 	int wanderCircleOffset = 80;
 	int wanderCircleRadius = 70;
 	float wanderAngle = 0.0f;

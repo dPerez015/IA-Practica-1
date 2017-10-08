@@ -66,8 +66,22 @@ Vector2D SteeringBehavior::Flee(Agent *agent, Agent *target, float dtime)
 	return Flee(agent, target->position, dtime);
 }
 
-Vector2D  SteeringBehavior::Arrive(Agent* agent, Vector2D target, int radius, float dt) {
-	return Vector2D(0, 0);
+Vector2D  SteeringBehavior::Arrive(Agent* agent, Vector2D target, float slowingRadius, float dt) {
+	Vector2D desiredVel;
+	Vector2D steeringForce;
+	float distance;
+	desiredVel = target - agent->getPosition();
+	distance = desiredVel.Length();
+
+	if (distance < slowingRadius) {
+		desiredVel = desiredVel.Normalize()*agent->getMaxVelocity()*(distance / slowingRadius);
+	}
+	else {
+		desiredVel = desiredVel.Normalize()*agent->getMaxVelocity();
+	}
+
+	steeringForce = desiredVel - agent->getVelocity();
+	return steeringForce.Truncate(agent->getMaxForce());
 }
 Vector2D  SteeringBehavior::Arrive(Agent* agent, Agent* target, int radius, float dt){
 	return Vector2D(0, 0);
@@ -75,8 +89,11 @@ Vector2D  SteeringBehavior::Arrive(Agent* agent, Agent* target, int radius, floa
 Vector2D  SteeringBehavior::Pursue(Agent* agent, Vector2D target, float dt) {
 	return Vector2D(0, 0);
 }
-Vector2D  SteeringBehavior::Pursue(Agent* agent, Agent* target, float dt) {
-	return Vector2D(0, 0);
+Vector2D  SteeringBehavior::Pursue(Agent* agent, Agent* pursued, float dt) {
+	float predictedT = Vector2D::Distance(agent->getPosition(), pursued->getPosition());
+	Vector2D predictedPos = pursued->getPosition() + pursued->getVelocity();
+	agent->setTarget(predictedPos);
+	return agent->Behavior()->Seek(agent, predictedPos, dt);
 }
 Vector2D  SteeringBehavior::Wander(Agent* agent, float angle, float* wanderAngle, int wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dt) {
 	return Vector2D(0, 0);

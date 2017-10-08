@@ -5,6 +5,7 @@ using namespace std;
 
 SceneWander::SceneWander()
 {
+	debugMode = true;
 	Agent *agent = new Agent;
 	agent->setPosition(Vector2D(640,360));
 	agent->setTarget(Vector2D(640, 360));
@@ -12,7 +13,7 @@ SceneWander::SceneWander()
 	agent->loadSpriteTexture("../res/soldier.png", 4);
 	agents.push_back(agent);
 	target = Vector2D(640, 360);
-	wanderMaxChange = 50;
+	wanderMaxChange = 0.005f;
 	wanderCircleOffset = 70;
 	wanderCircleRadius = 80;
 	wanderAngle = 0.0f;
@@ -29,7 +30,7 @@ SceneWander::~SceneWander()
 	}
 }
 
-Vector2D SceneWander::Wander(Agent* agent, float angle, float &wanderAngle, int wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dt) {
+Vector2D SceneWander::Wander(Agent* agent, float angle, float &wanderAngle, float wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dt) {
 	
 	//vector del centre del cercle respecte l'agent
 	wanderCircleCenter = agent->getVelocity().Normalize() * wanderCircleOffset;
@@ -38,8 +39,9 @@ Vector2D SceneWander::Wander(Agent* agent, float angle, float &wanderAngle, int 
 	wanderDisplacementVector.x = cos(wanderAngle) * wanderCircleRadius;
 	wanderDisplacementVector.y = sin(wanderAngle) * wanderCircleRadius;
 
+	agents[0]->setTarget(agents[0]->getPosition() + wanderCircleCenter + wanderDisplacementVector);
 	
-	wanderAngle += rand() % wanderMaxChange - wanderMaxChange / 2;
+	wanderAngle += ((rand()/RAND_MAX)* wanderMaxChange ) - (wanderMaxChange / 2);
 	
 	//Calcular WanderForce (suma dels 2 vectors)
 	Vector2D wanderForce = wanderCircleCenter + wanderDisplacementVector;
@@ -72,10 +74,22 @@ void SceneWander::update(float dtime, SDL_Event *event)
 
 void SceneWander::draw()
 {
-	agents[0]->draw();
+	if (debugMode)
+		agents[0]->draw();
+	else
+		debugDraw();
 }
-void SceneWander::changeDebugMode() {
 
+void SceneWander::debugDraw() {
+	agents[0]->draw();
+	draw_circle(TheApp::Instance()->getRenderer(), wanderCircleCenter.x+agents[0]->getPosition().x, wanderCircleCenter.y+ agents[0]->getPosition().y, wanderCircleRadius, 255, 0, 0, 255);
+}
+
+void SceneWander::changeDebugMode() {
+	debugMode = !debugMode;
+	for (int i = 0; i < agents.size(); i++) {
+		agents[i]->changeDrawMode();
+	}
 }
 const char* SceneWander::getTitle()
 {
