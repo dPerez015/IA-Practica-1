@@ -25,4 +25,6 @@ private:
 	bool agentOnTarget;
 	int currentTarget;
 	int pathCurrentDirection;
+	float lastTimeTargetSeted;
+	float timeToTarget;
 };
