@@ -12,6 +12,9 @@ SceneExecuteInOrder::SceneExecuteInOrder()
 	agent->loadSpriteTexture("../res/soldier.png", 4);
 	agents.push_back(agent);
 	target = Vector2D(640, 360);
+
+	//añadir pesos al vector
+
 }
 
 SceneExecuteInOrder::~SceneExecuteInOrder()
@@ -31,6 +34,19 @@ Vector2D SceneExecuteInOrder::ExecuteInOrder(Agent *agent, Agent *target, float 
 	return ExecuteInOrder(agent, target->getPosition(), dtime);
 
 }
+
+
+Vector2D SceneExecuteInOrder::WeighedSum(Agent* agent, Vector2D target) {
+	Vector2D steeringForce = Vector2D(0, 0);
+	//aqui hemos de ir aplicando las fuerzas y multiplicarlas por los pesos guardados en el vector "weights"
+
+
+
+	//una vez hecho eso hacemos un truncate de la fuerza resultante y la devolvemos 
+
+
+}
+
 
 void SceneExecuteInOrder::update(float dtime, SDL_Event *event)
 {
