@@ -30,5 +30,7 @@ public:
 	Vector2D Pursue(Agent* agent, Agent* target, float dt);
 	Vector2D Wander(Agent* agent, float angle, float* wanderAngle, int wanderMaxChange,int wanderCircleOffset, int wanderCircleRadius, float dt);
 	
+	//Behaviour combination
+	Vector2D Combination(Agent * agent, Vector2D target1, Vector2D target2, float dt);
 
 };
