@@ -23,7 +23,7 @@ SceneExecuteInOrder::~SceneExecuteInOrder()
 
 Vector2D SceneExecuteInOrder::ExecuteInOrder(Agent *agent, Vector2D target, float dtime){
 	
-	return 0;
+	return agent->Behavior()->Combination(agent, target, target, dtime);
 }
 
 Vector2D SceneExecuteInOrder::ExecuteInOrder(Agent *agent, Agent *target, float dtime) {

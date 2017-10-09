@@ -99,3 +99,8 @@ Vector2D  SteeringBehavior::Wander(Agent* agent, float angle, float* wanderAngle
 	return Vector2D(0, 0);
 
 }
+
+Vector2D SteeringBehavior::Combination(Agent * agent, Vector2D target1, Vector2D target2, float dt) {
+	steeringForce = Seek(agent, target1, dt) + Flee(agent, target2, dt);
+	return steeringForce;
+};
