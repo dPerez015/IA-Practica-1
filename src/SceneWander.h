@@ -29,5 +29,7 @@ public:
 	float wanderAngle = 0.0f;
 	Vector2D wanderCircleCenter = {};
 	Vector2D wanderDisplacementVector = {};
+	float timeSinceLastChange;
+	float timeToChange;
 };
 

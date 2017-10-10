@@ -44,7 +44,7 @@ Vector2D SceneExecuteInOrder::WeighedSum(Agent* agent, Vector2D target) {
 
 	//una vez hecho eso hacemos un truncate de la fuerza resultante y la devolvemos 
 
-
+	return  Vector2D(0,0);
 }
 
 
