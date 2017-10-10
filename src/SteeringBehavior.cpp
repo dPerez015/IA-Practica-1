@@ -88,13 +88,35 @@ Vector2D  SteeringBehavior::Pursue(Agent* agent, Agent* pursued, float dt) {
 	agent->setTarget(predictedPos);
 	return agent->Behavior()->Seek(agent, predictedPos, dt);
 }
-Vector2D  SteeringBehavior::Wander(Agent* agent, float angle, float* wanderAngle, int wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dt) {
-	return Vector2D(0, 0);
+Vector2D  SteeringBehavior::Wander(Agent* agent, float& wanderAngle, int wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float& timeSinceLastChange,float timeToChange, Vector2D& wanderCircleCenter, Vector2D& wanderDisplacementVector, float dt) {
+	timeSinceLastChange += dt;
+
+	//vector del centre del cercle respecte l'agent
+	wanderCircleCenter = agent->getVelocity().Normalize() * wanderCircleOffset;
+	if (timeSinceLastChange > timeToChange) {
+		//Displacement force
+		wanderDisplacementVector.x = cos(wanderAngle*DEG2RAD) * wanderCircleRadius;
+		wanderDisplacementVector.y = sin(wanderAngle*DEG2RAD) * wanderCircleRadius;
+		/*float randomnumber = rand();
+		float changeangle = (randomnumber / RAND_MAX)*wanderMaxChange;
+		changeangle -= wanderMaxChange / 2;
+
+		wanderAngle += changeangle;*/
+		wanderAngle += (((float)rand() / RAND_MAX)* wanderMaxChange) - (wanderMaxChange / 2);
+		timeSinceLastChange = 0;
+	}
+	//Calcular WanderForce (suma dels 2 vectors)
+	Vector2D wanderForce = wanderCircleCenter + wanderDisplacementVector;
+
+
+	agent->setTarget(agent->getPosition() + wanderCircleCenter + wanderDisplacementVector);
+	//truncate maxForce
+	return wanderForce.Truncate(agent->getMaxForce());
 
 }
 
-Vector2D SteeringBehavior::Combination(Agent * agent, Vector2D target1, Vector2D target2, float dt) {
-	steeringForce = Seek(agent, target1, dt) + Flee(agent, target2, dt);
+Vector2D SteeringBehavior::Combination(Agent * agent, Vector2D target1, Vector2D target2, float w1, float w2, float dt) {
+	steeringForce = Arrive(agent, target1, 150, dt)*w1 + Flee(agent, target2, dt)*w2;
 	return steeringForce;
 };
 

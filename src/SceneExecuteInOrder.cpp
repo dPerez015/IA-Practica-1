@@ -14,15 +14,26 @@ SceneExecuteInOrder::SceneExecuteInOrder()
 	target = Vector2D(640, 360);
 
 	agent = new Agent;
-	agent->setTarget(Vector2D(100, 100));
-	agent->setMass(0.6f);
+	agent->setPosition(Vector2D(1000, 300));
+	agent->setTarget(Vector2D(-100, -100));
+	agent->setMass(0.1f);
 	agent->setColor(0, 0, 255, 255);
 	agent->loadSpriteTexture("../res/zombie1.png", 8);
 	agents.push_back(agent);
 
 	//añadir pesos al vector
-	seekWeight = 2;
-	fleeWeight = 2;
+	seekWeight = 1;
+	fleeWeight = 1;
+
+	timeSinceLastChange = 0;
+	timeToChange = 0.02;
+	wanderAngle = 0;
+	wanderMaxChange = 30;
+	wanderCircleOffset = 200;
+	wanderCircleRadius = 80;
+	wanderCircleCenter = {};
+	wanderDisplacementVector = {};
+	srand(time(nullptr));
 }
 
 SceneExecuteInOrder::~SceneExecuteInOrder()
@@ -31,7 +42,7 @@ SceneExecuteInOrder::~SceneExecuteInOrder()
 		delete agents[i];
 	}
 }
-
+/*
 Vector2D SceneExecuteInOrder::ExecuteInOrder(Agent *agent, Vector2D target, float dtime){
 	
 	return agent->Behavior()->Combination(agent, target, target, dtime);
@@ -41,7 +52,7 @@ Vector2D SceneExecuteInOrder::ExecuteInOrder(Agent *agent, Agent *target, float 
 
 	return ExecuteInOrder(agent, target->getPosition(), dtime);
 
-}
+}*/
 
 
 Vector2D SceneExecuteInOrder::WeighedSum(Agent* agent, Vector2D target) {
@@ -72,14 +83,25 @@ void SceneExecuteInOrder::update(float dtime, SDL_Event *event)
 		break;
 	}
 
-	Vector2D steering_force = ExecuteInOrder(agents[0], agents[0]->getTarget(), dtime);
-	agents[0]->update(steering_force, dtime, event);
+	if (Vector2D::Distance(agents[0]->getPosition(), agents[1]->getPosition()) <= 150)
+		fleeWeight = 1.3;
+	else
+		fleeWeight = 0;
+
+
+
+	Vector2D steering_force = agents[0]->Behavior()->Combination(agents[0], agents[0]->getTarget(), agents[1]->getPosition(), seekWeight, fleeWeight, dtime);
+	agents[0]->update(steering_force.Truncate(agents[0]->getMaxForce()), dtime, event);
+
+	steering_force = agents[1]->Behavior()->Wander(agents[1], wanderAngle, wanderMaxChange, wanderCircleOffset, wanderCircleRadius, timeSinceLastChange, timeToChange, wanderCircleCenter, wanderDisplacementVector, dtime);
+	agents[1]->update(steering_force, dtime, event);
 }
 
 void SceneExecuteInOrder::draw()
 {
 	draw_circle(TheApp::Instance()->getRenderer(), (int)target.x, (int)target.y, 15, 255, 0, 0, 255);
 	agents[0]->draw();
+	agents[1]->draw();
 }
 
 const char* SceneExecuteInOrder::getTitle()

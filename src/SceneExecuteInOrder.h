@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "Agent.h"
+#include <time.h>
 
 class SceneExecuteInOrder :
 	public Scene
@@ -20,4 +21,13 @@ private:
 	Vector2D target;
 	float seekWeight;
 	float fleeWeight;
+
+	float timeSinceLastChange;
+	float timeToChange;
+	float wanderAngle;
+	int wanderMaxChange;
+	int wanderCircleOffset;
+	int wanderCircleRadius;
+	Vector2D wanderCircleCenter;
+	Vector2D wanderDisplacementVector;
 };
