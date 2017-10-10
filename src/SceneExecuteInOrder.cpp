@@ -13,8 +13,16 @@ SceneExecuteInOrder::SceneExecuteInOrder()
 	agents.push_back(agent);
 	target = Vector2D(640, 360);
 
-	//añadir pesos al vector
+	agent = new Agent;
+	agent->setTarget(Vector2D(100, 100));
+	agent->setMass(0.6f);
+	agent->setColor(0, 0, 255, 255);
+	agent->loadSpriteTexture("../res/zombie1.png", 8);
+	agents.push_back(agent);
 
+	//añadir pesos al vector
+	seekWeight = 2;
+	fleeWeight = 2;
 }
 
 SceneExecuteInOrder::~SceneExecuteInOrder()
@@ -63,6 +71,7 @@ void SceneExecuteInOrder::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
+
 	Vector2D steering_force = ExecuteInOrder(agents[0], agents[0]->getTarget(), dtime);
 	agents[0]->update(steering_force, dtime, event);
 }

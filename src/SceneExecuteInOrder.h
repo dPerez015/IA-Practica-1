@@ -18,5 +18,6 @@ public:
 private:
 	std::vector<Agent*> agents;
 	Vector2D target;
-	std::vector<float> weights;
+	float seekWeight;
+	float fleeWeight;
 };
