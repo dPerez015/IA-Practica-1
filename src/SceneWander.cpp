@@ -47,7 +47,7 @@ Vector2D SceneWander::Wander(Agent* agent, float angle, float &wanderAngle, floa
 		changeangle -= wanderMaxChange / 2;
 
 		wanderAngle += changeangle;*/
-		wanderAngle += ((float)(rand() / RAND_MAX)* wanderMaxChange) - (wanderMaxChange / 2);
+		wanderAngle += (((float)rand() / RAND_MAX)* wanderMaxChange) - (wanderMaxChange / 2);
 		timeSinceLastChange = 0;
 	}
 	//Calcular WanderForce (suma dels 2 vectors)
