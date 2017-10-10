@@ -8,8 +8,8 @@ class SceneAvoidance :
 public:
 	SceneAvoidance();
 	~SceneAvoidance();
-	Vector2D Avoid(Agent *agent, Vector2D target, float dtime);
-	Vector2D Avoid(Agent *agent, Agent *target, float dtime);
+	Vector2D Avoid(Agent *agent, Vector2D target, float perimeterBorder, float dtime);
+	Vector2D Avoid(Agent *agent, Agent *target, float perimeterBorder, float dtime);
 	void update(float dtime, SDL_Event *event);
 	void draw();
 	const char*getTitle();

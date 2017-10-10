@@ -67,8 +67,6 @@ Vector2D SteeringBehavior::Flee(Agent *agent, Agent *target, float dtime)
 }
 
 Vector2D  SteeringBehavior::Arrive(Agent* agent, Vector2D target, float slowingRadius, float dt) {
-	Vector2D desiredVel;
-	Vector2D steeringForce;
 	float distance;
 	desiredVel = target - agent->getPosition();
 	distance = desiredVel.Length();
@@ -83,12 +81,7 @@ Vector2D  SteeringBehavior::Arrive(Agent* agent, Vector2D target, float slowingR
 	steeringForce = desiredVel - agent->getVelocity();
 	return steeringForce.Truncate(agent->getMaxForce());
 }
-Vector2D  SteeringBehavior::Arrive(Agent* agent, Agent* target, int radius, float dt){
-	return Vector2D(0, 0);
-}
-Vector2D  SteeringBehavior::Pursue(Agent* agent, Vector2D target, float dt) {
-	return Vector2D(0, 0);
-}
+
 Vector2D  SteeringBehavior::Pursue(Agent* agent, Agent* pursued, float dt) {
 	float predictedT = Vector2D::Distance(agent->getPosition(), pursued->getPosition()) / agent->getMaxVelocity();
 	Vector2D predictedPos = pursued->getPosition() + pursued->getVelocity()*predictedT;
@@ -104,3 +97,25 @@ Vector2D SteeringBehavior::Combination(Agent * agent, Vector2D target1, Vector2D
 	steeringForce = Seek(agent, target1, dt) + Flee(agent, target2, dt);
 	return steeringForce;
 };
+
+Vector2D SteeringBehavior::Avoid(Agent* agent, Vector2D target, float perimeterBorder, float dt) {
+	desiredVel = target - agent->getPosition();
+
+	if (agent->getPosition().x < perimeterBorder) {
+		desiredVel.x = agent->getMaxVelocity();
+	}
+	else if (agent->getPosition().x > TheApp::Instance()->getWinSize().x - perimeterBorder) {
+		desiredVel.x = -agent->getMaxVelocity();
+	}
+	if (agent->getPosition().y < perimeterBorder) {
+		desiredVel.y = agent->getMaxVelocity();
+	}
+	else if (agent->getPosition().y > TheApp::Instance()->getWinSize().y - perimeterBorder) {
+		desiredVel.y = -agent->getMaxVelocity();
+	}
+	if (desiredVel.Length() > 0.f) {
+		steeringForce = desiredVel - agent->getVelocity();
+		steeringForce.Truncate(agent->getMaxForce());
+	}
+	return steeringForce;
+}
