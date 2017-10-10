@@ -14,6 +14,7 @@
 #include "SceneSeekSeek.h"
 #include "SceneAvoidance.h"
 #include "ScenePathFollowing.h"
+#include "SceneExecuteInOrder.h"
 
 
 using namespace std;
@@ -81,6 +82,11 @@ int main(int argc, char ** argv)
 			if (event.key.keysym.scancode == SDL_SCANCODE_9) {
 				delete(curr_scene);
 				curr_scene = new ScenePathFollowing;
+				app->setWindowTitle(curr_scene->getTitle());
+			}
+			if (event.key.keysym.scancode == SDL_SCANCODE_0) {
+				delete(curr_scene);
+				curr_scene = new SceneExecuteInOrder;
 				app->setWindowTitle(curr_scene->getTitle());
 			}
 			if ((event.key.keysym.scancode == SDL_SCANCODE_Q) || (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE))
