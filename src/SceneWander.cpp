@@ -7,7 +7,7 @@ SceneWander::SceneWander()
 {
 	debugMode = true;
 	Agent *agent = new Agent;
-	agent->setPosition(Vector2D(640,360));
+	agent->setPosition(Vector2D(640, 360));
 	agent->setTarget(Vector2D(640, 360));
 	agent->setMass(0.035);
 	agent->loadSpriteTexture("../res/soldier.png", 4);
@@ -31,7 +31,7 @@ SceneWander::~SceneWander()
 }
 
 Vector2D SceneWander::Wander(Agent* agent, float angle, float &wanderAngle, float wanderMaxChange, int wanderCircleOffset, int wanderCircleRadius, float dt) {
-	
+
 	//vector del centre del cercle respecte l'agent
 	wanderCircleCenter = agent->getVelocity().Normalize() * wanderCircleOffset;
 
@@ -40,9 +40,9 @@ Vector2D SceneWander::Wander(Agent* agent, float angle, float &wanderAngle, floa
 	wanderDisplacementVector.y = sin(wanderAngle) * wanderCircleRadius;
 
 	agents[0]->setTarget(agents[0]->getPosition() + wanderCircleCenter + wanderDisplacementVector);
-	
-	wanderAngle += ((rand()/RAND_MAX)* wanderMaxChange ) - (wanderMaxChange / 2);
-	
+
+	wanderAngle += ((rand() / RAND_MAX)* wanderMaxChange) - (wanderMaxChange / 2);
+
 	//Calcular WanderForce (suma dels 2 vectors)
 	Vector2D wanderForce = wanderCircleCenter + wanderDisplacementVector;
 
@@ -82,7 +82,7 @@ void SceneWander::draw()
 
 void SceneWander::debugDraw() {
 	agents[0]->draw();
-	draw_circle(TheApp::Instance()->getRenderer(), wanderCircleCenter.x+agents[0]->getPosition().x, wanderCircleCenter.y+ agents[0]->getPosition().y, wanderCircleRadius, 255, 0, 0, 255);
+	draw_circle(TheApp::Instance()->getRenderer(), wanderCircleCenter.x + agents[0]->getPosition().x, wanderCircleCenter.y + agents[0]->getPosition().y, wanderCircleRadius, 255, 0, 0, 255);
 }
 
 void SceneWander::changeDebugMode() {
@@ -94,4 +94,4 @@ void SceneWander::changeDebugMode() {
 const char* SceneWander::getTitle()
 {
 	return "SDL Steering Behaviors :: Wander Demo";
-}
+}}
