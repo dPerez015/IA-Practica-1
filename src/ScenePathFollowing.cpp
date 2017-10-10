@@ -93,7 +93,8 @@ void ScenePathFollowing::update(float dtime, SDL_Event* even) {
 							path.erase(path.begin() + i );
 
 							if (i == currentTarget && i == path.size()) {
-								changeAgentTarget(agents[0], path, pathCurrentDirection, currentTarget, path.size());
+								//changeAgentTarget(agents[0], path, pathCurrentDirection, currentTarget, path.size());
+								currentTarget -= 1;
 							}
 							//else if (i == currentTarget && i == 0) {
 							//	agents[0]->setTarget(path[0]);
